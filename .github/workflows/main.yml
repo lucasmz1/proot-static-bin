@@ -28,16 +28,22 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -qq clang-tools-18 curl gdb lcov libarchive-dev libtalloc-dev sloccount strace swig uthash-dev python3-dev lzop wget
+          sudo apt-get install -qq clang-tools-18 curl gdb lcov libarchive-dev libtalloc-dev sloccount strace swig uthash-dev python3-dev lzop wget \
+            zlib1g-dev
           wget -c -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip 
           unzip build-wrapper-linux-x86.zip 
           chmod +x ./build-wrapper-linux-x86/build-wrapper-linux-x86-64
           echo "$PWD/build-wrapper-linux-x86" >> $GITHUB_PATH
 
+      - name: Check zlib installation
+        run: |
+          find /usr/lib /usr/local/lib -name "libz.*"
+
       - name: Build static binaries
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -C src loader.elf loader-m32.elf build.h
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} env CFLAGS="-static --coverage" LDFLAGS="-static --coverage" make -C src proot care V=1
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
+          env CFLAGS="-static --coverage" LDFLAGS="-static --coverage -lz" \
+          make -C src proot care V=1
 
       - name: Skip Docker tests and run necessary checks
         run: |
