@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: "Static Binary Build"
+    name: "${{ matrix.SECCOMP == '1' && 'seccomp' || 'no-seccomp' }}"
     runs-on: ubuntu-22.04
     env:
       BUILD_WRAPPER_OUT_DIR: tmp
@@ -49,7 +49,7 @@ jobs:
 
       - name: Skip Docker tests and run necessary checks
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -C test -j $(nproc) QUIET_LOG=$PWD/test.log || true
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} env ${{ matrix.SECCOMP == '0' && 'PROOT_NO_SECCOMP=1' || '' }} make -C test -j $(nproc) QUIET_LOG=$PWD/test.log || true
           grep -v "test-docker" test.log || true  # Remove erro do test-docker
 
       - name: Set up Java 17
