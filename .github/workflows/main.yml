@@ -29,7 +29,7 @@ jobs:
         run: |
           set -eux
           sudo apt-get update -qq
-          sudo apt-get install -qq curl gdb lcov libarchive-dev libtalloc-dev sloccount libexpat1-dev strace swig uthash-dev python3-dev zlib1g-dev lzop wget zlib1g
+          sudo apt-get install -qq curl gdb lcov libarchive-dev libtalloc-dev sloccount libexpat1-dev strace swig uthash-dev python3-dev zlib1g-dev lzop wget zlib1g binutils
           sudo apt-get install python3.12-full
           wget -c -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip 
           unzip build-wrapper-linux-x86.zip 
@@ -38,7 +38,6 @@ jobs:
           wget https://apt.llvm.org/llvm.sh
           chmod +x llvm.sh
           sudo ./llvm.sh 20
-          sudo apt install ar
           
       - name: Set up Java 17
         uses: actions/setup-java@v3
