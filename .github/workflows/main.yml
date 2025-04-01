@@ -46,10 +46,11 @@ jobs:
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} env CFLAGS=--coverage LDFLAGS=--coverage make -C src proot care V=1
 
       - name: Execute test suite
-        continue-on-error: true
+        continue-on-error: true  # Permite que o workflow continue mesmo se os testes falharem
         timeout-minutes: 10
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -C test -j $(nproc) QUIET_LOG=$PWD/test.log
+         build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -C test -j $(nproc) QUIET_LOG=$PWD/test.log
+
 
       - name: Output test log
         if: always()
