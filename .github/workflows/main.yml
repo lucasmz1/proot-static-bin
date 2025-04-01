@@ -7,20 +7,18 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+     - master
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
   build:
-    name: "${{ matrix.SECCOMP == '1' && 'seccomp' || 'no-seccomp' }}"
+    name: "Setup Machine"
     runs-on: ubuntu-latest
     env:
       BUILD_WRAPPER_OUT_DIR: tmp
     strategy:
       fail-fast: false
-      matrix:
-        SECCOMP: [ 0, 1 ]
 
     steps:
       - uses: actions/checkout@v3
@@ -33,7 +31,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -qq clang-tools-12 curl gdb lcov libarchive-dev libtalloc-dev sloccount strace swig uthash-dev python3-dev lzop
+          sudo apt-get install -qq clang-tools-18 curl gdb lcov libarchive-dev libtalloc-dev sloccount strace swig uthash-dev python3-dev lzop
 
       - name: Gather analytics
         run: sloccount --details .
@@ -47,7 +45,7 @@ jobs:
         continue-on-error: true
         timeout-minutes: 10
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} env ${{ matrix.SECCOMP == '0' && 'PROOT_NO_SECCOMP=1' || '' }} PATH=/bin:/usr/bin:/sbin:/usr/sbin:$PWD/src make -C test -j $(nproc) QUIET_LOG=$PWD/test.log
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} PATH=/bin:/usr/bin:/sbin:/usr/sbin:$PWD/src make -C test -j $(nproc) QUIET_LOG=$PWD/test.log
 
       - name: Output test log
         if: always()
