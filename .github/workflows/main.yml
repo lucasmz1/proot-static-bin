@@ -1,13 +1,12 @@
 name: build
 
-
 on:
   schedule:
     - cron: "0 6 * * 0"
   workflow_dispatch:
   push:
     branches:
-     - master
+      - master
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -32,8 +31,10 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -qq clang-tools-18 curl gdb lcov libarchive-dev libtalloc-dev sloccount strace swig uthash-dev python3-dev lzop wget
-          wget -c -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip ; unzip build-wrapper-linux-x86.zip ; chmod +x ./build-wrapper-linux-x86/build-wrapper-linux-x86-64
-          export PATH="$PWD/build-wrapper-linux-x86:$PATH"
+          wget -c -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip 
+          unzip build-wrapper-linux-x86.zip 
+          chmod +x ./build-wrapper-linux-x86/build-wrapper-linux-x86-64
+          echo "$PWD/build-wrapper-linux-x86" >> $GITHUB_PATH
 
       - name: Gather analytics
         run: sloccount --details .
@@ -47,7 +48,8 @@ jobs:
         continue-on-error: true
         timeout-minutes: 10
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} PATH="/bin:/usr/bin:/sbin:/usr/sbin:$PWD/src:$PATH" make -C test -j $(nproc) QUIET_LOG=$PWD/test.log
+          export PATH="$PWD/src:$PATH"
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -C test -j $(nproc) QUIET_LOG=$PWD/test.log
 
       - name: Output test log
         if: always()
