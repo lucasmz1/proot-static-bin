@@ -28,7 +28,8 @@ jobs:
           set -eux
           sudo apt-get update -qq
           sudo apt-get install -qq curl gdb lcov libarchive-dev libtalloc-dev sloccount libexpat1-dev strace swig uthash-dev python3-dev zlib1g-dev lzop wget zlib1g binutils
-          sudo apt-get install python3.12-full
+          sudo apt-get install -qq build-essential pkg-config git install golang-go
+          go get gopkg.in/confluentinc/confluent-kafka-go.v1/kafka
           wget -c -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip 
           unzip build-wrapper-linux-x86.zip 
           chmod +x ./build-wrapper-linux-x86/build-wrapper-linux-x86-64
