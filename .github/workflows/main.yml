@@ -28,8 +28,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -qq curl gdb lcov libarchive-dev libtalloc-dev sloccount strace swig uthash-dev python3-dev lzop wget \
-            zlib1g-dev
+          sudo apt-get install -qq curl gdb lcov libarchive-dev libtalloc-dev sloccount strace swig uthash-dev python3-dev zlib1g-dev lzop wget zlib1g
           wget -c -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip 
           unzip build-wrapper-linux-x86.zip 
           chmod +x ./build-wrapper-linux-x86/build-wrapper-linux-x86-64
