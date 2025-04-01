@@ -20,7 +20,8 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -48,13 +49,18 @@ jobs:
         continue-on-error: true
         timeout-minutes: 10
         run: |
-          export PATH="$PWD/src:$PATH"
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make -C test -j $(nproc) QUIET_LOG=$PWD/test.log
 
       - name: Output test log
         if: always()
         continue-on-error: true
         run: ([ -f test.log ] && cat test.log) || true
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Run sonar-scanner
         env:
