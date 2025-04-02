@@ -51,7 +51,7 @@ jobs:
           export CFLAGS="-I/usr/include/libxml2"
           export LDFLAGS="-L/usr/lib/x86_64-linux-gnu -lexpat -lz"
           make -C src proot care V=1
-          build-wrapper-linux-x86-64 --out-dir ./tmp/
+          make install DESTDIR=./tmp/
 
       - name: Run sonar-scanner
         env:
