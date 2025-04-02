@@ -43,7 +43,7 @@ jobs:
           export CXX=clang++
           make -C src loader.elf build.h
           export CFLAGS="-I/usr/include/libxml2"
-          export LDFLAGS="-static -lexpat -lz"
+          export LDFLAGS="-static -lz -lexpat -ltalloc"
           make -C src proot care V=1
           ##make -C src prefix=$PWD/dist/ install
           find ./src/ -iname 'proot' | xargs -i -t mv {} dist/
