@@ -52,10 +52,53 @@ jobs:
           export LDFLAGS="-L/usr/lib/x86_64-linux-gnu -lexpat -lz"
           make -C src proot care V=1
           make -C src prefix=$PWD/tmp/ install
+          tar -Jcvf proot.tar.xz ./tmp/
+      - name: move files
+        run: |
+          mkdir dist
+          mv *proot.tar.xz* dist/
 
-      - name: Run sonar-scanner
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: proot place
+          path: 'dist/*proot.tar.xz*'
+
+      - name: Upload version artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: version
+          path: 'dist/version'
+
+  release:
+    needs: [build]
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download proot artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: proot
+
+      - name: Delete Previous Release
+        run: |
+          gh release delete "${APP_VERSION}" --repo "${GITHUB_REPOSITORY}" --cleanup-tag -y || echo "No release to delete"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Continuous universal"
+          tag_name: continuous-universal
+          prerelease: false
+          draft: false
+          generate_release_notes: false
+          make_latest: true
+          files: |
+            *.tar.xz*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
-        run: |
-          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
