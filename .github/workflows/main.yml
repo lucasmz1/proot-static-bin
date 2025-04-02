@@ -12,8 +12,6 @@ jobs:
   build:
     name: 'setup vm'
     runs-on: ubuntu-latest
-    env:
-      BUILD_WRAPPER_OUT_DIR: tmp
     strategy:
       fail-fast: false
 
@@ -46,6 +44,7 @@ jobs:
 
       - name: Build static binaries
         run: |
+          mkdir tmp
           export CC=clang
           export CXX=clang++
           make -C src loader.elf build.h
@@ -55,7 +54,7 @@ jobs:
 
       - name: Skip Docker tests and run necessary checks
         run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }}
+          build-wrapper-linux-x86-64 --out-dir ./tmp/
           grep -v "test-docker" test.log || true  # Remove erro do test-docker
 
       - name: Run sonar-scanner
