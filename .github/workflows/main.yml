@@ -48,10 +48,10 @@ jobs:
         run: |
           export CC=clang
           export CXX=clang++
-          LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src loader.elf build.h
-          LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src proot
-          #build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
-          #env CFLAGS="-static -g -O2" LDFLAGS="-static -lz" \
+          #LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src loader.elf build.h
+          #LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src proot
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
+          env CFLAGS="-DCRC32_DISABLE -static -g -O2" LDFLAGS="-static -lz" \
           make -C src proot care V=1
 
       - name: Skip Docker tests and run necessary checks
