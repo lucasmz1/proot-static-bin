@@ -27,7 +27,7 @@ jobs:
         run: |
           set -eux
           sudo apt-get update -qq
-          sudo apt-get install -qq librdkafka1 librdkafka-dev curl gdb lcov libc6-dev libarchive-dev libtalloc-dev sloccount libexpat1-dev strace swig uthash-dev python3-dev lzop wget binutils
+          sudo apt-get install -qq librdkafka1 librdkafka-dev curl gdb lcov libc6-dev libarchive-dev libtalloc-dev sloccount libexpat1-dev strace swig uthash-dev python3-dev lzop wget binutils libexpat-dev zlib1g-dev
           sudo apt-get install -qq build-essential pkg-config git golang-go
           wget -c -q https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip 
           unzip build-wrapper-linux-x86.zip 
@@ -46,14 +46,14 @@ jobs:
 
       - name: Build static binaries
         run: |
-          git clone https://github.com/madler/zlib.git && cd ./zlib/ && ./configure && make && sudo make install
-          cd ..
+          #git clone https://github.com/madler/zlib.git && cd ./zlib/ && ./configure && make && sudo make install
+          #cd ..
           export CC=clang
           export CXX=clang++
           #LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src loader.elf build.h
           #LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src proot
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
-          env CFLAGS="-DCRC32_DISABLE -static -g -O2" LDFLAGS="-static -lz" \
+          env CFLAGS="-static -g -O2 -lexpat -lz" LDFLAGS="-static -lexpat -lz" \
           make -C src proot care V=1
 
       - name: Skip Docker tests and run necessary checks
