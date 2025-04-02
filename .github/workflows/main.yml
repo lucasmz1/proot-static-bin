@@ -48,8 +48,8 @@ jobs:
         run: |
           export CC=clang
           export CXX=clang++
-          LDFLAGS="${LDFLAGS} -static -L/usr/lib/python2.7/config/" make -C src loader.elf build.h
-          LDFLAGS="${LDFLAGS} -static -L/usr/lib/python2.7/config/" make -C src proot
+          LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src loader.elf build.h
+          LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src proot
           #build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
           #env CFLAGS="-static -g -O2" LDFLAGS="-static -lz" \
           make -C src proot care V=1
