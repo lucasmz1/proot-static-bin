@@ -46,6 +46,8 @@ jobs:
 
       - name: Build static binaries
         run: |
+          git clone https://github.com/madler/zlib.git && cd ./zlib/ && ./configure && make && sudo make install
+          cd ..
           export CC=clang
           export CXX=clang++
           #LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src loader.elf build.h
