@@ -45,7 +45,8 @@ jobs:
           export CFLAGS="-I/usr/include/libxml2"
           export LDFLAGS="-L/usr/lib/x86_64-linux-gnu -lexpat -lz"
           make -C src proot care V=1
-          make -C src prefix=$PWD/dist/ install
+          ##make -C src prefix=$PWD/dist/ install
+          find ./src/ -iname 'proot' | xargs -i -t mv {} dist/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
