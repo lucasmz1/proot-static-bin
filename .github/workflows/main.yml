@@ -51,7 +51,7 @@ jobs:
           make -C src loader.elf build.h
           export CFLAGS="-I/usr/include/libxml2"
           export LDFLAGS="-L/usr/lib/x86_64-linux-gnu -lexpat -lz"
-          make $CFLAGS $LDFLAGS -C src proot care V=1
+          make -C src proot care V=1
 
       - name: Skip Docker tests and run necessary checks
         run: |
