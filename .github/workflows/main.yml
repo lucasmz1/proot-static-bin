@@ -35,12 +35,6 @@ jobs:
           chmod +x llvm.sh
           sudo ./llvm.sh 20
           sudo apt-get install -qq clang clang-tools curl gcc gdb git lcov libarchive-dev make sloccount strace swig libtalloc-dev uthash-dev
-          
-      - name: Set up Java 17
-        uses: actions/setup-java@v3
-        with:
-         distribution: 'temurin'
-         java-version: '17'
 
       - name: Build static binaries
         run: |
