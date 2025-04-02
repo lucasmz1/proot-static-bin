@@ -38,25 +38,20 @@ jobs:
 
       - name: Build static binaries
         run: |
-          mkdir tmp
+          mkdir dist
           export CC=clang
           export CXX=clang++
           make -C src loader.elf build.h
           export CFLAGS="-I/usr/include/libxml2"
           export LDFLAGS="-L/usr/lib/x86_64-linux-gnu -lexpat -lz"
           make -C src proot care V=1
-          make -C src prefix=$PWD/tmp/ install
-          find -iname 'tmp' -type d | xargs -i -t -exec tar -Jcvf proot.tar.xz {}
-      - name: move files
-        run: |
-          mkdir dist
-          mv *.xz* dist/
+          make -C src prefix=$PWD/dist/ install
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: proot place
-          path: 'dist/*.xz*'
+          path: 'dist/*proot*'
 
   release:
     needs: [build]
