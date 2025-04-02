@@ -46,14 +46,11 @@ jobs:
 
       - name: Build static binaries
         run: |
-          #git clone https://github.com/madler/zlib.git && cd ./zlib/ && ./configure && make && sudo make install
-          #cd ..
           export CC=clang
           export CXX=clang++
-          #LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src loader.elf build.h
-          #LDFLAGS="${LDFLAGS} -static -L/usr/lib/python3.12/config/" make -C src proot
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} \
-          export CFLAGS="-I/usr/include/libxml2" && export LDFLAGS="-L/usr/lib/x86_64-linux-gnu -lexpat -lz" \
+          make -C src loader.elf build.h
+          export CFLAGS="-I/usr/include/libxml2"
+          export LDFLAGS="-L/usr/lib/x86_64-linux-gnu -lexpat -lz"
           make $CFLAGS $LDFLAGS -C src proot care V=1
 
       - name: Skip Docker tests and run necessary checks
