@@ -52,11 +52,7 @@ jobs:
           tree \
           util-linux \
           xz \
-          coreutils \
           zstd"
-
-      - name: Build static binaries
-        run: |
           mkdir dist
           export CC=clang
           export CXX=clang++
