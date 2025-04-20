@@ -52,6 +52,7 @@ jobs:
           tree \
           util-linux \
           xz \
+          coreutils \
           zstd"
           "echo 'Accessing GITHUB_WORKSPACE:' && ls -la"
 
