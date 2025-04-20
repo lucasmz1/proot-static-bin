@@ -52,6 +52,8 @@ jobs:
           tree \
           util-linux \
           xz \
+          talloc \
+          talloc-dev \
           zstd"
           git clone https://github.com/lucasmz1/proot-static-bin.git
           cd proot-static-bin/
