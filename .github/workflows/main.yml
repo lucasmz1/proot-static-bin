@@ -53,7 +53,7 @@ jobs:
           util-linux \
           xz \
           zstd"
-          echo 'Accessing GITHUB_WORKSPACE:' && ls -la"
+          "echo 'Accessing GITHUB_WORKSPACE:' && ls -la"
 
       - name: Build static binaries
         run: |
