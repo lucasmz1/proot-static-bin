@@ -29,7 +29,31 @@ jobs:
       - name: Pull AMD64 Alpine Image
         run: |
           docker pull --platform=linux/amd64 alpine:latest
-          docker run --rm -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -w ${GITHUB_WORKSPACE} alpine:latest "sh -c apk update && apk add --no-cache 7zip bash binutils build-base clang coreutils croc curl findutils file g++ git grep jq libc-dev linux-headers moreutils rsync tar tree util-linux xz zstd"
+         docker run --rm -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -w ${GITHUB_WORKSPACE} alpine:latest sh -c "
+          apk update && \
+          apk add --no-cache \
+          p7zip \
+          bash \
+          binutils \
+          build-base \
+          clang \
+          coreutils \
+          curl \
+          findutils \
+          file \
+          g++ \
+          git \
+          grep \
+          jq \
+          libc-dev \
+          linux-headers \
+          moreutils \
+          rsync \
+          tar \
+          tree \
+          util-linux \
+          xz \
+          zstd"
           echo 'Accessing GITHUB_WORKSPACE:' && ls -la"
 
       - name: Build static binaries
