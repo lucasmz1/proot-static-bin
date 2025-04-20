@@ -54,7 +54,6 @@ jobs:
           xz \
           coreutils \
           zstd"
-          "echo 'Accessing GITHUB_WORKSPACE:' && ls -la"
 
       - name: Build static binaries
         run: |
