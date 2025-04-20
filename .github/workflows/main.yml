@@ -3,7 +3,6 @@ name: build
 on:
   schedule:
     - cron: "0 6 * * 0"
-  workflow_dispatch:true
   push:
     branches:
       - master
@@ -29,7 +28,7 @@ jobs:
       - name: Pull AMD64 Alpine Image
         run: |
           docker pull --platform=linux/amd64 alpine:latest
-         docker run --rm -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -w ${GITHUB_WORKSPACE} alpine:latest sh -c "
+          docker run --rm -v ${GITHUB_WORKSPACE}:${GITHUB_WORKSPACE} -w ${GITHUB_WORKSPACE} alpine:latest sh -c "
           apk update && \
           apk add --no-cache \
           p7zip \
