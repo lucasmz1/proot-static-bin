@@ -54,7 +54,7 @@ jobs:
           xz \
           talloc \
           talloc-dev \
-          pkg-config \
+          pkgconf \
           zstd"
           git clone https://github.com/lucasmz1/proot-static-bin.git
           cd proot-static-bin/
