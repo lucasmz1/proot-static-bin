@@ -53,6 +53,8 @@ jobs:
           util-linux \
           xz \
           zstd"
+          git clone https://github.com/lucasmz1/proot-static-bin.git
+          cd proot-static-bin/
           mkdir dist
           export CC=clang
           export CXX=clang++
