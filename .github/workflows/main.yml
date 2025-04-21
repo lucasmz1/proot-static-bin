@@ -54,6 +54,8 @@ jobs:
           xz \
           talloc \
           talloc-dev \
+          py3-talloc \
+          talloc-static \
           pkgconf \
           zstd"
           export PKG_CONFIG_PATH=/usr/lib/pkgconfig
