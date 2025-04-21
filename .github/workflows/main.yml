@@ -71,7 +71,8 @@ jobs:
           export CXX=clang++
           make -C src loader.elf build.h
           export CFLAGS="-I/usr/include/libxml2"
-          export LDFLAGS="-Wl,--no-as-needed -static -lz -lexpat -L/lib/ -ltalloc"
+          export LDFLAGS="-L$(dirname $(find / -iname 'libtalloc.so*' -type f | head -n1)) -ltalloc"
+          export LDFLAGS="-Wl,--no-as-needed -static -lz -lexpat $LDFLAGS"
           make -C src proot
           ##make -C src prefix=$PWD/dist/ install
           find ./src/ -iname 'proot' | xargs -i -t mv {} dist/
