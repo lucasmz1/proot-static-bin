@@ -58,6 +58,7 @@ jobs:
           talloc-static \
           pkgconf \
           zstd"
+          git clone https://github.com/esneider/talloc.git && cd talloc/ && make && sudo make install && cd ..
           export PKG_CONFIG_PATH="/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
           pkg-config --modversion talloc
           ls -l /usr/lib/pkgconfig/talloc.pc
