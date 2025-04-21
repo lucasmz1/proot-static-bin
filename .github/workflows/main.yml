@@ -59,8 +59,9 @@ jobs:
           pkgconf \
           samba \
           samba-dev \
+          waf \
           zstd"
-          wget -c "https://www.samba.org/ftp/talloc/talloc-2.4.2.tar.gz" && tar xvf talloc-2.4.2.tar.gz && cd talloc-2.4.2/ && ./configure && make && sudo make install && cd ..
+          wget -c "https://www.samba.org/ftp/talloc/talloc-2.4.2.tar.gz" && tar xvf talloc-2.4.2.tar.gz && cd talloc-2.4.2/ && waf configure --enable-static && waf build && sudo waf install && cd ..
           sudo ldconfig -v /usr/
           #export PKG_CONFIG_PATH="$PWD/talloc/src:$PKG_CONFIG_PATH"
           #pkg-config --modversion talloc
