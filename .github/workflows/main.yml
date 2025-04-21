@@ -59,7 +59,7 @@ jobs:
           pkgconf \
           zstd"
           wget -c "https://www.samba.org/ftp/talloc/talloc-2.4.3.tar.gz" && tar xvf talloc-2.4.3.tar.gz && cd talloc-2.4.3/ && ./configure && make && sudo make install && cd ..
-          git clone https://github.com/nccgroup/libtalloc.git && export PYTHONPATH="$PWD/libtalloc/:$PYTHONPATH"
+          git clone https://github.com/nccgroup/libtalloc.git && export PYTHONPATH="$PWD/libtalloc/:$PYTHONPATH" && export LD_LIBRARY_PATH="$PWD/libtalloc/:$LD_LIBRARY_PATH"
           #export PKG_CONFIG_PATH="$PWD/talloc/src:$PKG_CONFIG_PATH"
           #pkg-config --modversion talloc
           #ls -l /usr/lib/pkgconfig/talloc.pc
