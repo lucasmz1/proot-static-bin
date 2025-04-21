@@ -60,7 +60,7 @@ jobs:
           samba \
           samba-dev \
           zstd"
-          wget -c "https://www.samba.org/ftp/talloc/talloc-2.4.3.tar.gz" && tar xvf talloc-2.4.3.tar.gz && cd talloc-2.4.3/ && ./configure --enable-talloc-compat1 && make && sudo make install && cd ..
+          wget -c "https://www.samba.org/ftp/talloc/talloc-2.4.3.tar.gz" && tar xvf talloc-2.4.3.tar.gz && cd talloc-2.4.3/ && ./configure && make && sudo make install && cd ..
           #export PKG_CONFIG_PATH="$PWD/talloc/src:$PKG_CONFIG_PATH"
           #pkg-config --modversion talloc
           #ls -l /usr/lib/pkgconfig/talloc.pc
@@ -71,7 +71,7 @@ jobs:
           export CXX=clang++
           make -C src loader.elf build.h
           export CFLAGS="-I/usr/include/libxml2"
-          export LDFLAGS="-Wl,--no-as-needed -static -lz -lexpat -ltalloc"
+          export LDFLAGS="-Wl,--no-as-needed -static -lz -lexpat -L/usr/lib/ -llibtalloc"
           make -C src proot care V=1
           ##make -C src prefix=$PWD/dist/ install
           find ./src/ -iname 'proot' | xargs -i -t mv {} dist/
