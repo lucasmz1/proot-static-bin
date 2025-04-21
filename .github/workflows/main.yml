@@ -59,7 +59,7 @@ jobs:
           pkgconf \
           zstd"
           git clone https://github.com/esneider/talloc.git && cd talloc/ && make && cd ..
-          export PKG_CONFIG_PATH="$PWD/talloc/src/:$PKG_CONFIG_PATH"
+          export PKG_CONFIG_PATH="$PWD/talloc/src:$PKG_CONFIG_PATH"
           pkg-config --modversion talloc
           ls -l /usr/lib/pkgconfig/talloc.pc
           git clone https://github.com/lucasmz1/proot-static-bin.git
