@@ -20,7 +20,7 @@ jobs:
         wget -c "https://www.samba.org/ftp/talloc/talloc-2.4.2.tar.gz"
         tar xvf talloc-2.4.2.tar.gz
         cd talloc-2.4.2/
-        ./configure --enable-static
+        ./configure waf configure
         make
         sudo make install
         cd ..
