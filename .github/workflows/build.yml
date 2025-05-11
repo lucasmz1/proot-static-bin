@@ -14,6 +14,16 @@ jobs:
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
+      
+    - name: Install talloc
+      run: |
+        wget -c "https://www.samba.org/ftp/talloc/talloc-2.4.2.tar.gz"
+        tar xvf talloc-2.4.2.tar.gz
+        cd talloc-2.4.2/
+        ./configure --enable-static
+        make
+        sudo make install
+        cd ..
 
     - name: Compile and extract artifacts from docker container
       run: |
@@ -21,7 +31,7 @@ jobs:
 
         for arch in x86_64 aarch64 armhf i386; do
           docker build --platform "${arch}" -t alpine:proot .
-          docker run --rm --platform "${arch}" -v $(pwd):/workdir alpine:proot cp /bubblewrap/build/proot "/workdir/dist/proot-${arch}"
+          docker run --rm --platform "${arch}" -v $(pwd):/workdir alpine:proot cp /proot/build/proot "/workdir/dist/proot-${arch}"
         done
 
     - name: Set permissions for dist directory
