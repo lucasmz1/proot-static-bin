@@ -19,6 +19,7 @@ jobs:
       - name: build proot
         run: |
           sudo apt install zlib1g-dev
+          sudo apt install libtalloc-dev
           sudo apt install libexpat-dev
           git clone https://github.com/proot-me/proot.git
           cd proot/
