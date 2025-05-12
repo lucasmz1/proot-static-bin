@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: 'setup vm'
+    name: 'setup os target'
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
@@ -21,6 +21,7 @@ jobs:
           sudo apt install zlib1g-dev
           sudo apt install libtalloc-dev
           sudo apt install libexpat-dev
+          sudo apt install libxml2-dev
           git clone https://github.com/proot-me/proot.git
           cd proot/
           mkdir dist
