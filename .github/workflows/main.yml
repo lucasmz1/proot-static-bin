@@ -23,7 +23,7 @@ jobs:
           sudo apt install libtalloc-dev
           sudo apt install libexpat-dev
           sudo apt install libxml2-dev
-          sudo apt install libz-dev libexpat1-dev
+          sudo apt install libz-dev libexpat1-dev python3-dev
           git clone https://github.com/proot-me/proot.git
           cd proot/
           mkdir dist
