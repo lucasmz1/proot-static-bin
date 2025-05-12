@@ -19,12 +19,13 @@ jobs:
       - name: build proot
         run: |
           set -eux
+          sudo apt update
+          sudo apt install -y
           sudo apt install zlib1g-dev
           sudo apt install libtalloc-dev
           sudo apt install libexpat-dev
           sudo apt install libxml2-dev
-          sudo apt install libz-dev libexpat1-dev python3-dev
-          sudo apt install python3.11-dev
+          sudo apt install libz-dev libexpat1-dev python3-dev build-essential
           git clone https://github.com/proot-me/proot.git
           cd proot/
           mkdir dist
