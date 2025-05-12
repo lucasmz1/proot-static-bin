@@ -25,12 +25,13 @@ jobs:
           sudo apt install libtalloc-dev
           sudo apt install libexpat-dev
           sudo apt install libxml2-dev
-          sudo apt install libz-dev libexpat1-dev python3-dev build-essential
+          sudo apt install libz-dev libexpat1-dev python3-dev build-essential pkg-config
           git clone https://github.com/proot-me/proot.git
           cd proot/
           mkdir dist
           export CFLAGS="-I/usr/include/libxml2"
           export LDFLAGS="-Wl,--no-as-needed -static -lz -lexpat -ltalloc -lpython3.10"
+          export LDLIBS +="-lpython3.10 -lexpat -lz"
           make -C src loader.elf loader-m32.elf build.h
           make -C src proot
           find ./src/ -iname 'proot' | xargs -i -t mv {} dist/
