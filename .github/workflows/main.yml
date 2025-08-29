@@ -20,27 +20,26 @@ jobs:
           
       - name: 'build proot'
         run: |
-          apt update
-          dpkg --add-architecture i386
            apt update
-           apt install zlib1g-dev
-           apt install libtalloc-dev
-           apt install libexpat1-dev
-           apt install libxml2-dev
-           apt install libc6
-           apt install libc6-dev
-           apt install python3-dev build-essential pkg-config gcc-multilib g++-multilib
-          pkg-config --libs --cflags python3
-          git clone https://github.com/proot-me/proot.git
-          cd proot/
-          make -C src loader.elf loader-m32.elf build.h
-          make -C src proot
-          make -C src clean
-          export LDFLAGS="-static"
-          make -C src proot
-          mkdir ${GITHUB_WORKSPACE}/dist/
-          
-          find ./src/ -iname 'proot' | xargs -i -t mv {} ${GITHUB_WORKSPACE}/dist/
+           dpkg --add-architecture i386
+           apt update
+           apt install zlib1g-dev -y
+           apt install libtalloc-dev -y
+           apt install libexpat1-dev -y
+           apt install libxml2-dev -y
+           apt install libc6 -y
+           apt install libc6-dev -y
+           apt install python3-dev build-essential pkg-config gcc-multilib g++-multilib -y
+           pkg-config --libs --cflags python3
+           git clone https://github.com/proot-me/proot.git
+           cd proot/
+           make -C src loader.elf loader-m32.elf build.h
+           make -C src proot
+           make -C src clean
+           export LDFLAGS="-static"
+           make -C src proot
+           mkdir ${GITHUB_WORKSPACE}/dist/
+           find ./src/ -iname 'proot' | xargs -i -t mv {} ${GITHUB_WORKSPACE}/dist/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
