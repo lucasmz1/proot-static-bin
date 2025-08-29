@@ -18,29 +18,25 @@ jobs:
           
       - name: 'build proot'
         run: |
-          set -eux
           sudo apt update
-          sudo apt install -y
+          sudo sudo dpkg --add-architecture i386
+          sudo apt update
           sudo apt install zlib1g-dev
-          sudo apt install musl-tools
           sudo apt install libtalloc-dev
           sudo apt install libexpat1-dev
           sudo apt install libxml2-dev
-          sudo apt-get install libc6
-          sudo apt-get install libc6-dev
-          sudo apt install libz-dev libexpat1-dev python3-dev build-essential pkg-config
+          sudo apt install libc6
+          sudo apt install libc6-dev
+          sudo apt install python3-dev build-essential pkg-config 
           pkg-config --libs --cflags python3
           git clone https://github.com/proot-me/proot.git
           cd proot/
-          mkdir dist
-          #export CC=musl-gcc
-          export CFLAGS="-I/usr/include/libxml2"
-          #export LDLIBS +="-lpython3.10 -lexpat -lz"
           make -C src loader.elf loader-m32.elf build.h
           make -C src proot
           make -C src clean
           export LDFLAGS="-static"
           make -C src proot
+          
           find ./src/ -iname 'proot' | xargs -i -t mv {} dist/
 
       - name: Upload artifact
