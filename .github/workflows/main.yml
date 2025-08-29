@@ -20,16 +20,16 @@ jobs:
           
       - name: 'build proot'
         run: |
-          sudo apt update
-          sudo sudo dpkg --add-architecture i386
-          sudo apt update
-          sudo apt install zlib1g-dev
-          sudo apt install libtalloc-dev
-          sudo apt install libexpat1-dev
-          sudo apt install libxml2-dev
-          sudo apt install libc6
-          sudo apt install libc6-dev
-          sudo apt install python3-dev build-essential pkg-config gcc-multilib g++-multilib
+          apt update
+          dpkg --add-architecture i386
+           apt update
+           apt install zlib1g-dev
+           apt install libtalloc-dev
+           apt install libexpat1-dev
+           apt install libxml2-dev
+           apt install libc6
+           apt install libc6-dev
+           apt install python3-dev build-essential pkg-config gcc-multilib g++-multilib
           pkg-config --libs --cflags python3
           git clone https://github.com/proot-me/proot.git
           cd proot/
