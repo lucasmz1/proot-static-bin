@@ -34,7 +34,7 @@ jobs:
           cd proot/
           mkdir dist
           #export CC=musl-gcc
-          #export CFLAGS="-I/usr/include/libxml2"
+          export CFLAGS="-I/usr/include/libxml2"
           #export LDLIBS +="-lpython3.10 -lexpat -lz"
           make -C src loader.elf loader-m32.elf build.h
           make -C src proot
