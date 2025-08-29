@@ -36,8 +36,9 @@ jobs:
           make -C src clean
           export LDFLAGS="-static"
           make -C src proot
+          mkdir ${GITHUB_WORKSPACE}/dist/
           
-          find ./src/ -iname 'proot' | xargs -i -t mv {} dist/
+          find ./src/ -iname 'proot' | xargs -i -t mv {} ${GITHUB_WORKSPACE}/dist/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
