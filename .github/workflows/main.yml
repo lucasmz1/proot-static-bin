@@ -12,7 +12,7 @@ jobs:
     name: 'setup os target'
     runs-on: ubuntu-latest
     container:
-      image: debian:12
+      image: debian:12.11
     strategy:
       fail-fast: false
 
