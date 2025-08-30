@@ -40,12 +40,13 @@ jobs:
            make -C src proot
            mkdir ${GITHUB_WORKSPACE}/dist/
            find ./src/ -iname 'proot' | xargs -i -t mv {} ${GITHUB_WORKSPACE}/dist/
+           zip ${GITHUB_WORKSPACE}/dist/proot.zip ${GITHUB_WORKSPACE}/dist/proot
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: 'proot place'
-          path: 'dist/*proot*'
+          path: 'dist/*proot.zip*'
 
   release:
     needs: [build]
