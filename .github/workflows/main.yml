@@ -20,6 +20,7 @@ jobs:
           
       - name: 'build proot'
         run: |
+           echo $PATH
            apt update
            dpkg --add-architecture i386
            apt update
